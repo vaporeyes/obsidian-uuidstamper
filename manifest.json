@@ -1,0 +1,10 @@
+{
+	"id": "obsidian-uuid-stamper-plugin",
+	"name": "UUID Stamper Plugin",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "A UUID Stamper",
+	"author": "josh duncan",
+	"authorUrl": "https://josh.contact",
+	"isDesktopOnly": false
+}
