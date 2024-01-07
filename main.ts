@@ -30,7 +30,7 @@ const DEFAULT_SETTINGS: UUIDStamperPluginSettings = {
 
 const logThreshold = 9;
 const logger = (logString: string, logLevel = 0): void => {
-	if (logLevel <= logThreshold) console.log("TimeStamper: " + logString);
+	if (logLevel <= logThreshold) console.log("UUIDStamper: " + logString);
 };
 const version = "0.1.0";
 
@@ -46,21 +46,8 @@ export default class UUIDStamperPlugin extends Plugin {
 		this.addSettingTab(new UUIDStamperSettingTab(this.app, this));
 
 		this.addCommand({
-			id: "obsidian-custom-uuid-stamp",
-			name: "Insert custom uuid stamp",
-			editorCallback: (editor) => {
-				new UUIDStamperModal(
-					this.app,
-					editor,
-					this.settings,
-					this
-				).open();
-			},
-		});
-
-		this.addCommand({
 			id: 'obsidian-fast-uuid-stamp',
-			name: 'Insert preconfigured time stamp',
+			name: 'Insert preconfigured UUID stamp',
 			editorCallback: (editor) => {
 				const uuidStamp = uuidv4();
 				if (this.settings.newLine) {
@@ -76,7 +63,7 @@ export default class UUIDStamperPlugin extends Plugin {
 
 		this.addCommand({
 			id: 'obsidian-fast-short-uuid-stamp',
-			name: 'Insert short preconfigured time stamp',
+			name: 'Insert short preconfigured UUID stamp',
 			editorCallback: (editor) => {
 				const uuidStamp = uuidv4().slice(0,8);
 				if (this.settings.newLine) {
@@ -119,7 +106,7 @@ export default class UUIDStamperPlugin extends Plugin {
 			DEFAULT_SETTINGS,
 			await this.loadData()
 		);
-		logger("  - timeStampFormat: " + this.settings.uuidFormat, 6);
+		logger("  - UUIDFormat: " + this.settings.uuidFormat, 6);
 	}
 
 	async saveSettings() {
