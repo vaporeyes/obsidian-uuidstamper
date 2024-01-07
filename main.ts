@@ -129,22 +129,6 @@ export default class UUIDStamperPlugin extends Plugin {
 	}
 }
 
-// class SampleModal extends Modal {
-// 	constructor(app: App) {
-// 		super(app);
-// 	}
-
-// 	onOpen() {
-// 		const {contentEl} = this;
-// 		contentEl.setText('Woah!');
-// 	}
-
-// 	onClose() {
-// 		const {contentEl} = this;
-// 		contentEl.empty();
-// 	}
-// }
-
 class UUIDStamperModal extends Modal {
 	constructor(
 		app: App,
@@ -258,12 +242,12 @@ class UUIDStamperSettingTab extends PluginSettingTab {
 
 		new Setting(containerEl)
 			.setName("UUID Stamp Template")
-			.setDesc("Template String for inserting a date stamp")
+			.setDesc("Template String for inserting a UUID stamp")
 			.addText((text) =>
 				text
 					.setValue(this.plugin.settings.uuidFormat)
 					.onChange(async (value) => {
-						logger("Settings update - Date Stamp: " + value, 5);
+						logger("Settings update - UUID Stamp: " + value, 5);
 						this.plugin.settings.uuidFormat = value;
 						await this.plugin.saveSettings();
 					})
