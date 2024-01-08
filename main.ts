@@ -45,53 +45,103 @@ export default class UUIDStamperPlugin extends Plugin {
 
 		this.addSettingTab(new UUIDStamperSettingTab(this.app, this));
 
+
 		this.addCommand({
-			id: 'obsidian-fast-uuid-stamp',
-			name: 'Insert preconfigured UUID stamp',
+			id: "obsidian-fast-uuid-stamp",
+			name: "Insert preconfigured UUID stamp",
 			editorCallback: (editor) => {
 				const uuidStamp = uuidv4();
 				if (this.settings.newLine) {
-					editor.replaceSelection(uuidStamp + '\n');
-					logger('new line', 9);
-				}
-				else {
+					editor.replaceSelection(uuidStamp + "\n");
+					logger("new line", 9);
+				} else {
 					editor.replaceSelection(uuidStamp);
-					logger('no new line', 9);
+					logger("no new line", 9);
 				}
-			}
+			},
 		});
 
 		this.addCommand({
-			id: 'obsidian-fast-short-uuid-stamp',
-			name: 'Insert short preconfigured UUID stamp',
+			id: "obsidian-fast-template-header",
+			name: "Insert a template header",
+			editorCallback: (editor: Editor) => {
+				const now = new Date();
+				const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+				const title = view!.file!.basename;
+				const stamp = moment(now).format("X");
+				const timestampString = stamp.toString();
+				const uuidStamp = uuidv4();
+				const textToInsert = `---\ncreated: ${timestampString}\ndesc:\nid: ${uuidStamp}\ntitle: ${title}\nupdated: ${stamp}\n---\n`;
+				editor.replaceSelection(textToInsert);
+			},
+		});
+
+// ---
+// category: mexican
+// cookingtime: 2 min
+// id: 995ea82f-5750-4204-91d3-4051749945b6
+// ingredients:
+// - - masa, corn
+//   - 124 g
+// - - water
+//   - 1 c
+// - - salt
+//   - 1 tsp
+// portions: 1
+// preparationtime: 30 min
+// recipe: tortillas
+// servingsize: 100 g
+// tags:
+// - recipe
+// - food
+// - mexican
+// totaltime: 32 min
+// ---
+
+		this.addCommand({
+			id: "obsidian-fast-cooking-template-header",
+			name: "Insert a cooking note header",
+			editorCallback: (editor: Editor) => {
+				const now = new Date();
+				const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+				const title = view!.file!.basename;
+				const stamp = moment(now).format("X");
+				const timestampString = stamp.toString();
+				const uuidStamp = uuidv4();
+				const textToInsert = `---\ncreated: ${timestampString}\ncategory:\ncookingtime:\nid: ${uuidStamp}\ntitle: ${title}\ningredients:\nportions:\npreparationtime:\nrecipe: ${title}\nservingsize:\ntags:\ntotaltime:\n---\n`;
+				editor.replaceSelection(textToInsert);
+			},
+		});
+
+		this.addCommand({
+			id: "obsidian-fast-short-uuid-stamp",
+			name: "Insert short preconfigured UUID stamp",
 			editorCallback: (editor) => {
-				const uuidStamp = uuidv4().slice(0,8);
+				const uuidStamp = uuidv4().slice(0, 8);
 				if (this.settings.newLine) {
-					editor.replaceSelection(uuidStamp + '\n');
-					logger('new line', 9);
-				}
-				else {
+					editor.replaceSelection(uuidStamp + "\n");
+					logger("new line", 9);
+				} else {
 					editor.replaceSelection(uuidStamp);
-					logger('no new line', 9);
+					logger("no new line", 9);
 				}
-			}
+			},
 		});
 
 		this.addCommand({
-			id: 'obsidian-fast-zettel-stamp',
-			name: 'Insert preconfigured zettelkasten id',
+			id: "obsidian-fast-zettel-stamp",
+			name: "Insert preconfigured zettelkasten id",
 			editorCallback: (editor) => {
 				const now = new Date();
-				const stamp = moment(now).format("X");
+				const stamp = moment(now).format("YYYYMMDDHHmmss");
 				if (this.settings.newLine) {
-					editor.replaceSelection(stamp + '\n');
-					logger('new line', 9);
-				}
-				else {
+					editor.replaceSelection(stamp + "\n");
+					logger("new line", 9);
+				} else {
 					editor.replaceSelection(stamp);
-					logger('no new line', 9);
+					logger("no new line", 9);
 				}
-			}
+			},
 		});
 	}
 
